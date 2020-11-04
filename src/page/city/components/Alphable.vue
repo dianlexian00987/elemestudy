@@ -1,8 +1,14 @@
 <template>
-    <div class="alph" ref="alph">
+    <div class="alph"
+         ref="alph"
+         @touchstart="touchHandlerStart"
+         @touchmove="touchHandlerMove"
+         @touchend="touchHandlerEnd"
+    >
       <ul class="list">
         <li class="item" v-for="item in citylist"
             :ref="item"
+            @click="itemHandleClick(item)"
         >
           {{item}}
         </li>
@@ -15,10 +21,14 @@
         name: "CityAlphable",
       props:{
         citylist:Array
+
       },
       data(){
           return{
-            startY : 0
+            startY : 0,
+            startMove: false,
+            moveY: 0,
+            targetY:0
           }
       },
       mounted() {
@@ -26,15 +36,30 @@
       },
       updated(){
         this.startY = this.$refs['A'][0].offsetTop;
-        console.log(this.startY)
-
-
+        console.log(this.$refs['A'])
       },
       methods:{
           //滚动的监听
-        scrollDs: function (e) {
-          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-          console.log(scrollTop)
+        touchHandlerStart(e){
+          console.log(e,'开始')
+          this.startMove=true;
+        },
+        touchHandlerMove(e){
+
+          if (this.startMove){
+          this.moveY=  e.touches[0].clientY;
+          console.log(this.moveY)
+          this.targetY=this.moveY-this.startY;
+
+          }
+        },
+        touchHandlerEnd(e){
+          this.startMove=false;
+        },
+        itemHandleClick(item){
+          console.log(item)
+          this.$emit('change',item)
+
         }
       }
 

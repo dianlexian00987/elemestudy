@@ -23,9 +23,12 @@
         </div>
       </div>
       <div class="eare" v-for="(item,key) in cities">
-        <div class="title">{{key}}</div>
+        <div class="title" :ref="key">{{key}}</div>
         <ul class="list">
-          <li class="item" v-for="itemInfo in item">{{itemInfo.name}}</li>
+          <li class="item" v-for="itemInfo in item"
+              @click="cityItem(itemInfo.name)">
+            {{itemInfo.name}}
+          </li>
         </ul>
       </div>
 
@@ -44,35 +47,47 @@
     props: {
       cities: Object,
       city: String,
-      hotCities: Array
+      hotCities: Array,
+      letter: String
     },
     mounted() {
       //console.log(this.cities)
-      let bs = new Bscroll(this.$refs.wrapper, {
+      this. bs = new Bscroll(this.$refs.wrapper, {
         click: true
       });
       //console.log(bs)
     },
-    methods :{
-      hontCity(name){
-        console.log('点击了热门城市'+name)
-        this.$store.commit('increment',name)
+    methods: {
+      hontCity(name) {
+        console.log('点击了热门城市' + name)
+        this.$store.commit('increment', name)
         this.$router.push('/')
       },
-      currentCity(city){
+      currentCity(city) {
         console.log(city);
         //修改数据
-        this.$store.commit('increment',city)
+        this.$store.commit('increment', city)
+        this.$router.push('/')
+      },
+      cityItem(city) {
+        this.$store.commit('increment', city)
         this.$router.push('/')
       }
+    },
+    watch:{
+      letter(){
+        console.log(this.$refs[this.letter])
+        this.bs.scrollToElement(this.$refs[this.letter][0])
+      }
     }
+
 
   }
 </script>
 
 <style scoped>
 
-  .list-city{
+  .list-city {
     position: absolute;
     left: 0;
     right: 0;
@@ -80,6 +95,7 @@
     bottom: 0;
     overflow: hidden;
   }
+
   .eare .title {
     height: .6rem;
     line-height: .6rem;
@@ -104,12 +120,13 @@
     border: .01rem solid #ccc;
     text-align: center;
   }
+
   .eare .list .item {
-       height: .68rem;
-       line-height: .68rem;
-       padding-left: .3rem;
-       font-size: .36rem;
-       border: .001rem solid #eee;
-     }
+    height: .68rem;
+    line-height: .68rem;
+    padding-left: .3rem;
+    font-size: .36rem;
+    border: .001rem solid #eee;
+  }
 
 </style>

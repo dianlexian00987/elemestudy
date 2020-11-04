@@ -6,8 +6,12 @@
       :city="city"
       :cities="cities"
       :hotCities="hotCities"
+      :letter="letter"
       ></CityBody>
-    <CityAlphable :citylist="citylist"></CityAlphable>
+    <CityAlphable :citylist="citylist"
+
+    @change="handleLetterChange"
+    ></CityAlphable>
   </div>
 </template>
 
@@ -30,7 +34,8 @@
         cities:{},
         city:'',
         hotCities:[],
-        citylist:[]
+        citylist:[],
+        letter : ''
       }
     },
     mounted() {
@@ -54,6 +59,9 @@
           this.citylist.push(item)
 
         }
+      },
+      handleLetterChange(letter){
+          this.letter=letter;
       }
     }
   }
