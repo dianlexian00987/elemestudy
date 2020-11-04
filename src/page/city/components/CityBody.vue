@@ -4,7 +4,7 @@
       <div class="eare">
         <div class="title">当前城市</div>
         <div class="city-list">
-          <div class="city-item">
+          <div class="city-item" @click="currentCity(city)">
             <div class="item">
               {{city}}
             </div>
@@ -15,7 +15,7 @@
         <div class="title">热门城市</div>
         <div class="city-list">
           <div class="city-item" v-for="item in hotCities" :key="item.id">
-            <div class="item">
+            <div class="item" @click="hontCity(item.name)">
               {{item.name}}
             </div>
 
@@ -52,6 +52,19 @@
         click: true
       });
       //console.log(bs)
+    },
+    methods :{
+      hontCity(name){
+        console.log('点击了热门城市'+name)
+        this.$store.commit('increment',name)
+        this.$router.push('/')
+      },
+      currentCity(city){
+        console.log(city);
+        //修改数据
+        this.$store.commit('increment',city)
+        this.$router.push('/')
+      }
     }
 
   }

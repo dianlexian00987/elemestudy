@@ -1,5 +1,5 @@
 <template>
-    <div class="alph">
+    <div class="alph" ref="alph">
       <ul class="list">
         <li class="item" v-for="item in citylist"
             :ref="item"
@@ -22,8 +22,7 @@
           }
       },
       mounted() {
-
-          window.addEventListener('scroll',this.scrollDs,true)
+        this.$refs.alph.addEventListener('scroll',this.scrollDs)
       },
       updated(){
         this.startY = this.$refs['A'][0].offsetTop;
@@ -33,8 +32,9 @@
       },
       methods:{
           //滚动的监听
-        scrollDs(e) {
-          console.log(".................",e)
+        scrollDs: function (e) {
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+          console.log(scrollTop)
         }
       }
 

@@ -11,7 +11,7 @@
       </div>
       <div class="heard-right">
         <router-link to="/city" class="heard-right-city">
-          <span class="address">上海</span>
+          <span class="address">{{cityName}}</span>
           <span class="iconfont">&#xe62a;</span>
 
         </router-link>
@@ -23,7 +23,22 @@
 
 <script>
     export default {
-        name: "HomeHeard"
+        name: "HomeHeard",
+      data(){
+          return{
+            city : ''
+          }
+      },
+      mounted() {
+
+
+      },
+      watch :{
+          cityName:function () {
+            this.city=   this.$store.state.city
+            console.log(this.cityName)
+          }
+      }
     }
 </script>
 
