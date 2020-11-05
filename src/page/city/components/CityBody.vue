@@ -76,8 +76,11 @@
     },
     watch:{
       letter(){
-        console.log(this.$refs[this.letter])
-        this.bs.scrollToElement(this.$refs[this.letter][0])
+        if (this.letter){
+          console.log(this.$refs[this.letter])
+          this.bs.scrollToElement(this.$refs[this.letter][0])
+        }
+
       }
     }
 

@@ -28,15 +28,13 @@
             startY : 0,
             startMove: false,
             moveY: 0,
-            targetY:0
+            targetY:0,
+            currentY:0
           }
-      },
-      mounted() {
-        this.$refs.alph.addEventListener('scroll',this.scrollDs)
       },
       updated(){
         this.startY = this.$refs['A'][0].offsetTop;
-        console.log(this.$refs['A'])
+        console.log(this.startY)
       },
       methods:{
           //滚动的监听
@@ -48,8 +46,12 @@
 
           if (this.startMove){
           this.moveY=  e.touches[0].clientY;
-          console.log(this.moveY)
-          this.targetY=this.moveY-this.startY;
+          //移动的距离
+          this.currentY=  this.moveY-this.startY;
+          const index= Math.floor(this.currentY/25);
+          if (index>=0 && index<=this.citylist.length){
+            this.$emit('change',this.citylist[index])
+          }
 
           }
         },
@@ -71,7 +73,7 @@
    display: flex;
    position: fixed;
    right: 0;
-   top: 2.58rem;
+   top: 0;
    width: .5rem;
    text-align: center;
    bottom: 0;

@@ -12,7 +12,7 @@
           </div>
         </div>
 
-      <div class="recomment-body">
+      <div class="recomment-body" @click="recommentItemClick">
         <div class="hot-left">
           <img src="http://img1.qunarzz.com/sight/p0/1409/19/adca619faaab0898245dc4ec482b5722.jpg_140x140_80f63803.jpg" alt="" class="img">
         </div>
@@ -38,7 +38,13 @@
 
 <script>
     export default {
-        name: "HomeRecomment"
+        name: "HomeRecomment",
+      methods :{
+        recommentItemClick(){
+          console.log('我被点了')
+          this.$router.push('/detail')
+        }
+      }
     }
 </script>
 
